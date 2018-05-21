@@ -3,7 +3,7 @@ public class MasterMind extends Game {
 
 	public MasterMind() {
 
-		ReadConfig("Resources/config.properties");
+		readConfig("Resources/config.properties");
 
 		String message = "\n---------------------------------------\n";
 		message += "|           MASTERMIND                |\n";
@@ -13,17 +13,17 @@ public class MasterMind extends Game {
 		message += "2 : Defenseur\n";
 		message += "3 : Duel";
 
-		int choix = Presentation(message);
+		int choix = presentation(message);
 
 		switch (choix) {
 		case 1:
-			ChallengerMode("MasterMind");
+			challengerMode("MasterMind");
 			break;
 		case 2:
-			DefenderMode("MasterMind");
+			defenderMode("MasterMind");
 			break;
 		case 3:
-			DualMode("MasterMind");
+			dualMode("MasterMind");
 			break;
 		}
 

@@ -3,7 +3,7 @@ public class SearchGame extends Game {
 
 	public SearchGame() {
 
-		ReadConfig("Resources/config.properties");
+		readConfig("Resources/config.properties");
 
 		String message = "\n---------------------------------------\n";
 		message += "|           JEU RECHERCHE +/-         |\n";
@@ -13,17 +13,17 @@ public class SearchGame extends Game {
 		message += "2 : Defenseur\n";
 		message += "3 : Duel";
 
-		int choix = Presentation(message);
+		int choix = presentation(message);
 
 		switch (choix) {
 		case 1:
-			ChallengerMode("SearchGame");
+			challengerMode("SearchGame");
 			break;
 		case 2:
-			DefenderMode("SearchGame");
+			defenderMode("SearchGame");
 			break;
 		case 3:
-			DualMode("SearchGame");
+			dualMode("SearchGame");
 			break;
 		}
 

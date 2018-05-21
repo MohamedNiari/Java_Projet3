@@ -5,13 +5,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.InputMismatchException;
 import java.util.Properties;
 import java.util.Random;
-import java.util.Scanner;
 
 public abstract class Game {
-
 	protected int numberBox;
 	protected int numberDigit;
 	protected int numberTest;
@@ -28,13 +25,9 @@ public abstract class Game {
 	protected int numberAuthorizedTrials;
 	protected int numberCompletedTrials;
 
-	public void CheckInput() {
-
-		@SuppressWarnings("resource")
-		Scanner scanner = new Scanner(System.in);
+	public void checkInput() {
 		String message;
 		String[] output;
-
 		proposal = new Integer[numberBox];
 		boolean entry = false;
 
@@ -43,10 +36,10 @@ public abstract class Game {
 
 		do {
 			System.out.println(message);
-			output = scanner.nextLine().split("");
+			output = Program.scanner.nextLine().split("");
 			try {
 				for (int i = 0; i < numberBox; i++) {
-					if (output.length == numberBox && !EqualityTest(output, 0)) {
+					if (output.length == numberBox && !equalityTest(output, 0)) {
 						proposal[i] = Integer.valueOf(output[i]).intValue();
 						entry = true;
 					}
@@ -54,25 +47,22 @@ public abstract class Game {
 			} catch (NumberFormatException e) {
 			}
 		} while (!entry);
-
 	}
 
-	public void GenerateHint() {
-
+	public void generateHint() {
 		hint = new char[numberBox];
 		for (int i = 0; i < numberBox; i++)
 			hint[i] = '_';
-
 	}
 
-	public String Display(char[] tab) {
+	public String display(char[] tab) {
 		String str = "";
 		for (char x : tab)
 			str += x;
 		return str;
 	}
 
-	public boolean EqualityTest(char[] tab, int n) {
+	public boolean equalityTest(char[] tab, int n) {
 		if (n > tab.length - 1) {
 			return false;
 		}
@@ -80,10 +70,10 @@ public abstract class Game {
 		if (tab[n] != 'O' && tab[n] != '=')
 			return true;
 		else
-			return EqualityTest(tab, n + 1);
+			return equalityTest(tab, n + 1);
 	}
 
-	public boolean EqualityTest(String[] tab, int n) {
+	public boolean equalityTest(String[] tab, int n) {
 		if (n > tab.length - 1) {
 			return false;
 		}
@@ -91,11 +81,10 @@ public abstract class Game {
 		if (Integer.valueOf(tab[n]) > numberDigit - 1)
 			return true;
 		else
-			return EqualityTest(tab, n + 1);
+			return equalityTest(tab, n + 1);
 	}
 
-	public void ReadConfig(String fichier) {
-
+	public void readConfig(String fichier) {
 		Properties prop = new Properties();
 		InputStream input = null;
 
@@ -125,30 +114,23 @@ public abstract class Game {
 		numberTest = Integer.parseInt(test);
 	}
 
-	public int Presentation(String message) {
-
+	public int presentation(String message) {
 		int Input;
-		@SuppressWarnings("resource")
-		Scanner scanner = new Scanner(System.in);
+		
 		do {
 			Input = 0;
 			try {
 				System.out.println(message);
-				Input = scanner.nextInt();
+				Input = Integer.parseInt(Program.scanner.nextLine());
 
-			} catch (InputMismatchException e) {
-				scanner.next();
-			}
+			} catch (NumberFormatException e) {}
 
 		} while (Input != 1 && Input != 2 && Input != 3);
 
 		return Input;
-
 	}
 
-	@SuppressWarnings("static-access")
-	public void EndOfGame(String nameGame) {
-
+	public void endOfGame(String nameGame) {
 		String message = "---------------------------------------\n";
 		message += "|           FIN DU JEU                |\n";
 		message += "---------------------------------------\n";
@@ -157,7 +139,7 @@ public abstract class Game {
 		message += "2 : Jouer un autre jeu\n";
 		message += "3 : Quitter le jeu";
 
-		int choix = Presentation(message);
+		int choix = presentation(message);
 
 		switch (choix) {
 		case 1:
@@ -178,7 +160,7 @@ public abstract class Game {
 
 	}
 
-	public void RandomCombination() {
+	public void randomCombination() {
 
 		combination = new Integer[numberBox];
 
@@ -198,7 +180,7 @@ public abstract class Game {
 
 	}
 
-	public void ComparisonSearchGame(Integer[] proposal, Integer[] combination) {
+	public void comparisonSearchGame(Integer[] proposal, Integer[] combination) {
 
 		for (int i = 0; i < numberBox; i++) {
 			if (proposal[i] == combination[i]) {
@@ -214,11 +196,11 @@ public abstract class Game {
 			}
 		}
 
-		System.out.println(Display(hint));
+		System.out.println(display(hint));
 
 	}
 
-	public void ComparisonMasterMind(Integer[] proposal, Integer[] combination) {
+	public void comparisonMasterMind(Integer[] proposal, Integer[] combination) {
 
 		boolean[] digitRepetition = new boolean[numberBox];
 
@@ -242,18 +224,18 @@ public abstract class Game {
 			}
 		}
 
-		System.out.println(Display(hint));
+		System.out.println(display(hint));
 
 	}
 
-	public void GenerateOriginalList() {
+	public void generateOriginalList() {
 		list = new ArrayList<Integer>();
 		for (int i = 0; i < numberDigit; i++)
 			list.add(i);
 
 	}
 
-	public void GenerateList(String modeGame) {
+	public void generateList(String modeGame) {
 
 		for (int i = numberBox - 1; i >= 0; i--) {
 			if (hint[i] != 'O' && hint[i] != '#' && modeGame == "Defender") {
@@ -276,7 +258,7 @@ public abstract class Game {
 
 	}
 
-	public void GenerateProposalSearchGame(String gameMode) {
+	public void generateProposalSearchGame(String gameMode) {
 		random = new Random();
 
 		for (int i = 0; i < numberBox; i++) {
@@ -320,7 +302,7 @@ public abstract class Game {
 		System.out.println(" ");
 	}
 
-	public void GenerateProposalMasterMind(String gameMode) {
+	public void generateProposalMasterMind(String gameMode) {
 
 		random = new Random();
 		int numberCount = 0;
@@ -363,84 +345,84 @@ public abstract class Game {
 
 	}
 
-	public void DisplayLapstoGo() {
+	public void displayLapstoGo() {
 
 		System.out.println("-> Reste " + (numberAuthorizedTrials - numberCompletedTrials) + " tentatives\n");
 	}
 
-	public void DefenderMode(String nameGame) {
+	public void defenderMode(String nameGame) {
 
 		combination = new Integer[numberBox];
 		numberAuthorizedTrials = numberTest;
 		numberCompletedTrials = 0;
 
-		DisplayModeDefender();
-		CheckInput();
+		displayModeDefender();
+		checkInput();
 		if (nameGame.equals("MasterMind")) {
 			proposalList = new ArrayList<ArrayList<Integer>>();
-			GenerateOriginalList();
+			generateOriginalList();
 		}
 
-		GenerateHint();
+		generateHint();
 
-		while (numberCompletedTrials < numberAuthorizedTrials && EqualityTest(hint, 0)) {
-			DisplayLapstoGo();
+		while (numberCompletedTrials < numberAuthorizedTrials && equalityTest(hint, 0)) {
+			displayLapstoGo();
 			if (nameGame.equals("SearchGame"))
-				GenerateProposalSearchGame("noDual");
+				generateProposalSearchGame("noDual");
 			if (nameGame.equals("MasterMind"))
-				GenerateProposalMasterMind("noDual");
-			GenerateHint();
+				generateProposalMasterMind("noDual");
+			generateHint();
 			if (nameGame.equals("SearchGame"))
-				ComparisonSearchGame(combination, proposal);
+				comparisonSearchGame(combination, proposal);
 			if (nameGame.equals("MasterMind")) {
-				ComparisonMasterMind(combination, proposal);
-				GenerateList("Defender");
+				comparisonMasterMind(combination, proposal);
+				generateList("Defender");
 			}
 			numberCompletedTrials++;
 		}
 
-		if (!EqualityTest(hint, 0)) {
+		if (!equalityTest(hint, 0)) {
 			System.out.println("\n********L'ordinateur a gagné !********\n");
 		} else
 			System.out.println("\n********L'ordinateur a perdu !********\n");
 
-		EndOfGame(nameGame);
+		endOfGame(nameGame);
 	}
 
-	public void ChallengerMode(String nameGame) {
+	public void challengerMode(String nameGame) {
 
 		numberAuthorizedTrials = numberTest;
 		numberCompletedTrials = 0;
 
-		DisplayModeChallenger();
-		RandomCombination();
-		GenerateHint();
+		displayModeChallenger();
+		randomCombination();
+		generateHint();
 
-		while (numberCompletedTrials < numberAuthorizedTrials && EqualityTest(hint, 0)) {
-			DisplayLapstoGo();
-			CheckInput();
-			GenerateHint();
+		while (numberCompletedTrials < numberAuthorizedTrials && equalityTest(hint, 0)) {
+			displayLapstoGo();
+			checkInput();
+			generateHint();
 
 			if (nameGame.equals("SearchGame"))
-				ComparisonSearchGame(proposal, combination);
+				comparisonSearchGame(proposal, combination);
 
 			if (nameGame.equals("MasterMind"))
-				ComparisonMasterMind(proposal, combination);
+				comparisonMasterMind(proposal, combination);
 
 			numberCompletedTrials++;
 		}
 
-		if (!EqualityTest(hint, 0)) {
+		if (!equalityTest(hint, 0)) {
 			System.out.println("********Vous avez gagné !********\n");
 		} else {
 			System.out.println("********Vous avez perdu !********\n");
-			RevealSolution();
+			revealSolution();
 		}
-		EndOfGame(nameGame);
+		endOfGame(nameGame);
 
 	}
 
-	public void DualMode(String nameGame) {
+	public void dualMode(String nameGame) {
 
 		proposal = new Integer[numberBox];
 		combination = new Integer[numberBox];
@@ -448,63 +430,63 @@ public abstract class Game {
 		numberCompletedTrials = 0;
 		boolean machineTurn = false;
 
-		DisplayModeDual();
+		displayModeDual();
 
 		if (nameGame.equals("MasterMind")) {
 			proposalList = new ArrayList<ArrayList<Integer>>();
-			GenerateOriginalList();
+			generateOriginalList();
 		}
 
-		RandomCombination();
-		GenerateHint();
+		randomCombination();
+		generateHint();
 
-		while (numberCompletedTrials < numberAuthorizedTrials && EqualityTest(hint, 0)) {
+		while (numberCompletedTrials < numberAuthorizedTrials && equalityTest(hint, 0)) {
 
-			DisplayLapstoGo();
+			displayLapstoGo();
 
 			if (nameGame == "SearchGame") {
-				GenerateProposalSearchGame("Dual");
+				generateProposalSearchGame("Dual");
 				machineTurn = true;
-				GenerateHint();
-				ComparisonSearchGame(proposal, combination);
+				generateHint();
+				comparisonSearchGame(proposal, combination);
 			}
 
 			if (nameGame == "MasterMind") {
-				GenerateProposalMasterMind("Dual");
+				generateProposalMasterMind("Dual");
 				machineTurn = true;
-				GenerateHint();
-				ComparisonMasterMind(proposal, combination);
-				GenerateList("Dual");
+				generateHint();
+				comparisonMasterMind(proposal, combination);
+				generateList("Dual");
 			}
 
-			if (EqualityTest(hint, 0)) {
-				CheckInput();
+			if (equalityTest(hint, 0)) {
+				checkInput();
 				machineTurn = false;
-				GenerateHint();
+				generateHint();
 				if (nameGame == "SearchGame")
-					ComparisonSearchGame(proposal, combination);
+					comparisonSearchGame(proposal, combination);
 				if (nameGame == "MasterMind") {
-					ComparisonMasterMind(proposal, combination);
-					GenerateList("Dual");
+					comparisonMasterMind(proposal, combination);
+					generateList("Dual");
 				}
 			}
 
 			numberCompletedTrials++;
 		}
 
-		if (!EqualityTest(hint, 0) && machineTurn) {
+		if (!equalityTest(hint, 0) && machineTurn) {
 			System.out.println("\n********L'ordinateur a gagné !********\n");
-		} else if (!EqualityTest(hint, 0) && !machineTurn)
+		} else if (!equalityTest(hint, 0) && !machineTurn)
 			System.out.println("\n********Vous avez gagné !********\n");
 		else {
 			System.out.println("\nNi vous, ni la machine n'avez trouvé la combinaison");
-			RevealSolution();
+			revealSolution();
 		}
-		EndOfGame(nameGame);
+		endOfGame(nameGame);
 
 	}
 
-	public void DisplayModeChallenger() {
+	public void displayModeChallenger() {
 
 		String message = "\n---------------------------------------\n";
 		message += "|           MODE CHALLENGER           |\n";
@@ -513,32 +495,27 @@ public abstract class Game {
 
 	}
 
-	public void DisplayModeDefender() {
-
+	public void displayModeDefender() {
 		String message = "\n---------------------------------------\n";
 		message += "|           MODE DEFENDER             |\n";
 		message += "---------------------------------------\n";
 		System.out.println(message);
-
 	}
 
-	public void DisplayModeDual() {
-
+	public void displayModeDual() {
 		String message = "\n---------------------------------------\n";
 		message += "|             MODE DUAL              |\n";
 		message += "---------------------------------------\n";
 		System.out.println(message);
-
 	}
 
-	public void RevealSolution() {
-
+	public void revealSolution() {
 		System.out.println("\nLa combinaison secrète était la suivante : ");
-
 		System.out.print("(");
+
 		for (int x : combination)
 			System.out.print(x);
-		System.out.println(")");
 
+		System.out.println(")");
 	}
 }
