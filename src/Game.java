@@ -92,12 +92,8 @@ public abstract class Game {
 			input = new FileInputStream(fichier);
 			prop.load(input);
 		} catch (FileNotFoundException e) {
-			/**
-			 * <p>
-			 * Va gérer l'exception en cas d'absence de fichier
-			 * </p>
-			 */
 			e.printStackTrace();
+			Program.logger.info("The file config.properties does not exists !");
 		} catch (IOException e) {
 			/**
 			 * <p>
