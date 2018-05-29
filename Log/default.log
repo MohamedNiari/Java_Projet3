@@ -178,3 +178,39 @@ Number of Box is 5
 Number of Digit is 8
 Number of Trials is 10
 2018-05-29 00:02:19.370 [main] INFO  Main - Lancement du jeu SearchGame en mode dual
+2018-05-29 01:39:15.093 [main] INFO  Main - Le mode développeur est activé
+2018-05-29 01:39:17.667 [main] INFO  Main - Récupération des paramètres de configuration.
+2018-05-29 01:39:17.669 [main] WARN  Main - 
+Number of Box is 5
+Number of Digit is 8
+Number of Trials is 10
+2018-05-29 01:39:21.123 [main] INFO  Main - Lancement du jeu MasterMind en mode challenger
+2018-05-29 01:40:03.027 [main] INFO  Main - Récupération des paramètres de configuration.
+2018-05-29 01:40:03.029 [main] WARN  Main - 
+Number of Box is 5
+Number of Digit is 8
+Number of Trials is 10
+2018-05-29 01:40:05.068 [main] INFO  Main - Lancement du jeu MasterMind en mode defender
+2018-05-29 01:40:09.890 [main] INFO  Main - Récupération des paramètres de configuration.
+2018-05-29 01:40:09.891 [main] WARN  Main - 
+Number of Box is 5
+Number of Digit is 8
+Number of Trials is 10
+2018-05-29 01:40:11.527 [main] INFO  Main - Lancement du jeu MasterMind en mode dual
+2018-05-29 01:40:22.737 [main] INFO  Main - Le mode développeur est activé
+2018-05-29 01:40:24.244 [main] INFO  Main - Récupération des paramètres de configuration.
+2018-05-29 01:40:24.247 [main] WARN  Main - 
+Number of Box is 5
+Number of Digit is 8
+Number of Trials is 10
+2018-05-29 01:40:25.156 [main] INFO  Main - Lancement du jeu SearchGame en mode challenger
+2018-05-29 01:40:45.547 [main] INFO  Main - Le mode développeur est activé
+2018-05-29 01:40:47.423 [main] INFO  Main - Récupération des paramètres de configuration.
+2018-05-29 01:40:47.425 [main] WARN  Main - 
+Number of Box is 5
+Number of Digit is 8
+Number of Trials is 10
+2018-05-29 01:40:48.853 [main] INFO  Main - Lancement du jeu MasterMind en mode challenger
+2018-05-29 01:41:03.428 [main] INFO  Main - 
+La combinaison secrète était la suivante : 
+(45340)
