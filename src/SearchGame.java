@@ -14,7 +14,6 @@ public class SearchGame extends Game {
 	 */
 
 	public SearchGame() {
-		readConfig("Resources/config.properties");
 		String message = "\n---------------------------------------\n";
 		message += "|           JEU RECHERCHE +/-         |\n";
 		message += "---------------------------------------\n";

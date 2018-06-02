@@ -13,14 +13,16 @@ import org.apache.logging.log4j.Logger;
  *************************************************************************/
 
 public class Main {
-	static boolean developerMode = false;
 	static final Logger logger = LogManager.getLogger();
 
 	public static void main(String[] args) {
+		ReadConfig read = new ReadConfig();
+		
 		for (String arg : args)
 			if (arg.equals("-d"))
-				developerMode = true;
-
+				read.setModeDeveloper(true);
+		
+		read.displayModeDeveloper();
 		new Main().Launching();
 	}
 
@@ -32,13 +34,7 @@ public class Main {
 	 */
 	public void Launching() {
 		int input;
-
-		if (developerMode == true) {
-			logger.info("Le mode développeur est activé");
-		} else {
-			logger.info("Le mode développeur est désactivé");
-		}
-
+		
 		do {
 			input = 0;
 			String Message = "\n---------------------------------------\n";

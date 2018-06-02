@@ -39,11 +39,8 @@ import java.util.Scanner;
  * @see Game#revealSolution()
  * @see Game#logInfoPresentation(String, String)
  *************************************************************************/
-public abstract class Game {
+public abstract class Game extends ReadConfig {
 
-	protected int numberBox;
-	protected int numberDigit;
-	protected int numberTest;
 	protected Integer[] proposal;
 	protected Integer[] combination;
 	protected char[] hint;
@@ -157,40 +154,6 @@ public abstract class Game {
 			return equalityTest(tab, n + 1);
 	}
 
-	public void readConfig(String fichier) {
-		/**
-		 * Read the config properties
-		 * 
-		 * @param fichier
-		 * @exception FileNotFoundException
-		 * @exception IOException
-		 */
-		Main.logger.info("Récupération des paramètres de configuration.");
-		Properties prop = new Properties();
-		InputStream input = null;
-
-		try {
-			input = new FileInputStream(fichier);
-			prop.load(input);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-			Main.logger.info("The file config.properties does not exists !");
-		} catch (IOException e) {
-
-			e.printStackTrace();
-		}
-		String box = prop.getProperty("numberBox");
-		String digit = prop.getProperty("numberDigit");
-		String test = prop.getProperty("numberTest");
-		numberBox = Integer.parseInt(box);
-		numberDigit = Integer.parseInt(digit);
-		numberTest = Integer.parseInt(test);
-
-		if (Main.developerMode == true) {
-			Main.logger.warn("\nNumber of Box is " + numberBox + "\nNumber of Digit is " + numberDigit
-					+ "\nNumber of Trials is " + numberTest);
-		}
-	}
 
 	public int presentation(String message) {
 		/**
@@ -232,7 +195,7 @@ public abstract class Game {
 
 		int choix = presentation(message);
 
-		switch (choix) {
+		switch (choix) { 
 		case 1:
 			if (nameGame == "SearchGame")
 				new SearchGame();
@@ -264,7 +227,7 @@ public abstract class Game {
 
 		System.out.println("\nNous venons de choisir la combinaison");
 
-		if (Main.developerMode == true) {
+		if (isModeDeveloper() == true) {
 			System.out.print("(");
 			for (int x : combination)
 				System.out.print(x);
@@ -469,6 +432,54 @@ public abstract class Game {
 		System.out.println("-> Reste " + (numberAuthorizedTrials - numberCompletedTrials) + " tentatives\n");
 	}
 
+	public void displayModeChallenger() {
+		/**
+		 * Display a message for the mode challenger
+		 */
+		String message = "\n---------------------------------------\n";
+		message += "|           MODE CHALLENGER           |\n";
+		message += "---------------------------------------\n";
+		System.out.println(message);
+	}
+
+	public void displayModeDefender() {
+		/**
+		 * Display a message for the mode defender
+		 */
+		String message = "\n---------------------------------------\n";
+		message += "|           MODE DEFENDER             |\n";
+		message += "---------------------------------------\n";
+		System.out.println(message);
+	}
+
+	public void displayModeDual() {
+		/**
+		 * Display a message for the mode dual
+		 */
+		String message = "\n---------------------------------------\n";
+		message += "|             MODE DUAL              |\n";
+		message += "---------------------------------------\n";
+		System.out.println(message);
+	}
+
+	public void revealSolution() {
+		/**
+		 * Reveal the secret combination
+		 */
+		Main.logger.info("\nLa combinaison secrète était la suivante : \n(" + display(combination) + ")");
+
+	}
+
+	public void logInfoPresentation(String nameGame, String mode) {
+		/**
+		 * game and mode information
+		 * 
+		 * @param nameGame
+		 * @param mode
+		 */
+		Main.logger.info("Lancement du jeu " + nameGame + " en mode " + mode);
+	}
+	
 	public void defenderMode(String nameGame) {
 		/**
 		 * Methode that handle the defender mode
@@ -619,51 +630,4 @@ public abstract class Game {
 		endOfGame(nameGame);
 	}
 
-	public void displayModeChallenger() {
-		/**
-		 * Display a message for the mode challenger
-		 */
-		String message = "\n---------------------------------------\n";
-		message += "|           MODE CHALLENGER           |\n";
-		message += "---------------------------------------\n";
-		System.out.println(message);
-	}
-
-	public void displayModeDefender() {
-		/**
-		 * Display a message for the mode defender
-		 */
-		String message = "\n---------------------------------------\n";
-		message += "|           MODE DEFENDER             |\n";
-		message += "---------------------------------------\n";
-		System.out.println(message);
-	}
-
-	public void displayModeDual() {
-		/**
-		 * Display a message for the mode dual
-		 */
-		String message = "\n---------------------------------------\n";
-		message += "|             MODE DUAL              |\n";
-		message += "---------------------------------------\n";
-		System.out.println(message);
-	}
-
-	public void revealSolution() {
-		/**
-		 * Reveal the secret combination
-		 */
-		Main.logger.info("\nLa combinaison secrète était la suivante : \n(" + display(combination) + ")");
-
-	}
-
-	public void logInfoPresentation(String nameGame, String mode) {
-		/**
-		 * game and mode information
-		 * 
-		 * @param nameGame
-		 * @param mode
-		 */
-		Main.logger.info("Lancement du jeu " + nameGame + " en mode " + mode);
-	}
 }

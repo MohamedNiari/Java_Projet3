@@ -14,7 +14,7 @@ public class MasterMind extends Game {
 	 */
 
 	public MasterMind() {
-		readConfig("Resources/config.properties");
+		
 		String message = "\n---------------------------------------\n";
 		message += "|           MASTERMIND                |\n";
 		message += "---------------------------------------\n";
